@@ -4,7 +4,7 @@
 2. In `config/config.json` add the absolute path to the `db.json` file
 3. The executable for `x86_64-pc-linux-gnu` is in the `/bin` folder. If you want to compile it for a different architecture:
 - Install Crystal (https://crystal-lang.org/install/)
-- Run `crystal build src/main.cr --release -o 'bot' && mv bot bin`
+- Run `crystal build src/main.cr --release -o 'autoforwardbot' && mv autoforwardbot bin`
 4. Download `config/config.json`, `bin/autoforwardbot` and `db/db.json`
 5. Run `./autoforwardbot -p "/absolute/path/to/config.json"`
 
