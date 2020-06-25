@@ -1,0 +1,14 @@
+version: 2.0
+shards:
+  http_proxy:
+    git: https://github.com/mamantoha/http_proxy.git
+    version: 0.7.0+git.commit.7b71e2b7ac8ae99015c9c34b5637a6c3af0fb93e
+
+  pool:
+    git: https://github.com/watzon/pool.git
+    version: 0.3.0
+
+  tourmaline:
+    git: https://github.com/protoncr/tourmaline.git
+    version: 0.21.0+git.commit.d3dc12c42be6803ce9333a70e5de3ab443c1a682
+

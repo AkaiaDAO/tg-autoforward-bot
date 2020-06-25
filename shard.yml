@@ -1,0 +1,18 @@
+name: autoforwardbot
+version: 0.1.0
+
+authors:
+  - your-name-here <your-email-here>
+
+targets:
+  autoforwardbot:
+    main: src/autoforwardbot.cr
+
+dependencies:
+  tourmaline:
+    github: protoncr/tourmaline
+    branch: master 
+
+crystal: 0.35.1
+
+license: MIT
