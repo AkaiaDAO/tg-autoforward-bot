@@ -1,1 +1,9 @@
-[{"channel_id":null,"title":null,"group_ids":[null]},{"channel_id":-1001355975618,"title":"testchannel2","group_ids":[]}]
+[
+  {
+    "channel_id": -100,
+    "title": "seed channel",
+    "group_ids": [
+      -101
+    ]
+  }
+]

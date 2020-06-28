@@ -183,9 +183,12 @@ Once that's set up, press /menu and follow the instructions."
 
   @[On(:channel_post)]
   def register_channel(ctx)
+    puts "Registering a channel post..."
     ctx.channel_post.try do |post|
       unless Storage.db.as_a.any? { |channel| channel.as_h["channel_id"] == post.chat.id }
         Storage.add_channel(post.chat)
+      else
+        forward_message(ctx)
       end
     end
   end
@@ -200,12 +203,16 @@ Once that's set up, press /menu and follow the instructions."
     end
   end
 
-  @[On(:channel_post)]
   def forward_message(ctx)
+    puts "Got a channel post"
     ctx.channel_post.try do |message|
+      puts "Trying..."
       Storage.db.as_a.each do |rec|
+        puts "Trying a DB record"
         if rec.as_h["channel_id"].as_i64 == message.chat.id
+          puts "It fits!"
           rec.as_h["group_ids"].as_a.each do |group_id|
+            puts "Forwarding to a group..."
             message.forward(group_id.as_i64)
           end
         end
