@@ -193,7 +193,8 @@ Once that's set up, press /menu and follow the instructions."
   @[On(:message)]
   def register_group(ctx)
     ctx.message.try do |post|
-      if !Storage.groups.as_a.includes?(post.chat.id) && (post.chat.type.downcase == "group" || post.chat.type.downcase == "supergroup")
+      type = post.chat.type
+      if !Storage.groups.as_a.includes?(post.chat.id) && (type == Tourmaline::Chat::Type::Supergroup || type == Tourmaline::Chat::Type::Group)
         Storage.add_group(post.chat)
       end
     end
