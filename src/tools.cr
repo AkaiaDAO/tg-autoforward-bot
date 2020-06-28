@@ -33,11 +33,54 @@ Admins:"
 
   def prettify(id_list : Array(Int64)) : String
     output = ""
-    id_list.each do |id|
+    id_list.each_with_index do |id, index|
       output += "\n"
+      output += (index + 1).to_s
       output += prettify(id)
     end
     output
+  end
+
+  def group_list_ids(groups)
+    output = [] of String
+    Storage.groups.as_a.each do |gr_group|
+      groups.as_a.each do |arg_group| 
+        if gr_group.as_h["group_id"] == arg_group
+          id = gr_group.as_h["group_id"]
+          title = gr_group.as_h["title"]
+          output << "     #{title} (`#{id}`)"
+        end
+      end
+    end
+    output.join("\n")
+  end
+
+  def group_list_hashes(groups = Storage.groups)
+    output = [] of String
+    Storage.groups.as_a.each do |gr_group|
+      groups.as_a.each do |arg_group| 
+        if gr_group.as_h["group_id"] == arg_group.as_h["group_id"]
+          id = gr_group.as_h["group_id"]
+          title = gr_group.as_h["title"]
+          output << "     #{title} (`#{id}`)"
+        end
+      end
+    end
+    output.join("\n")
+  end
+
+  def channel_list
+    output = [] of String
+    Storage.db.as_a.each do |channel|
+      id = channel.as_h["channel_id"]
+      title = channel.as_h["title"]
+      groups = channel.as_h["group_ids"]
+
+      output << "#{title} (`#{id}`)
+Forwarding to:
+#{group_list_ids(groups)}"
+    end
+    output.join("\n")
   end
 
   def link(user : Tourmaline::User) : String

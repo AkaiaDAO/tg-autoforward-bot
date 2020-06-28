@@ -1,7 +1,6 @@
 {
-  "owner_id": 851126352,
-  "admin_ids": [
-    786714018
-  ],
-  "db_path": "/mnt/c/ruby/autoforwardbot/db/db.json"
+  "owner_id": 786714018,
+  "admin_ids": [],
+  "db_path": "/mnt/c/ruby/autoforwardbot/db/db.json",
+  "groups_path": "/mnt/c/ruby/autoforwardbot/db/groups.json"
 }
