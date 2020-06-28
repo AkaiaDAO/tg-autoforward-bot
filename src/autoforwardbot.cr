@@ -17,6 +17,7 @@ end
 class AutoForwardBot < Tourmaline::Client
   ROOT_MENU = ReplyKeyboardMarkup.build do
     button "🔢 Show all channels"
+    button "📜 Show all groups"
     button "✍️ Edit a channel"
   end
 
@@ -41,9 +42,13 @@ class AutoForwardBot < Tourmaline::Client
 
   @[Hears("🔢 Show all channels")]
   def show_channels(ctx)
-    ctx.message.reply(Tools.channel_list, parse_mode: ParseMode::Markdown)
+    ctx.message.reply(Tools.channel_list, parse_mode: "Markdown")
   end
 
+  @[Hears("📜 Show all groups")]
+  def show_groups(ctx)
+    ctx.message.reply(Tools.group_list_hashes, parse_mode: "Markdown")
+  end
 
   @[Hears("✍️ Edit a channel")]
   def edit_channel(ctx)
@@ -188,7 +193,7 @@ Once that's set up, press /menu and follow the instructions."
   @[On(:message)]
   def register_group(ctx)
     ctx.message.try do |post|
-      if !Storage.groups.as_a.includes?(post.chat.id) && (post.chat.type == "group" || post.chat.type == "supergroup")
+      if !Storage.groups.as_a.includes?(post.chat.id) && (post.chat.type.downcase == "group" || post.chat.type.downcase == "supergroup")
         Storage.add_group(post.chat)
       end
     end

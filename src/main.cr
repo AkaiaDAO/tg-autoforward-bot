@@ -15,20 +15,28 @@ parser.parse
 module Config
   extend self 
 
-  @@path : String | Nil
+  @@path = ""
 
   def path=(path)
     @@path = path
   end
 
   def config : JSON::Any
-    JSON.parse(File.read(@@path.not_nil!))
+    default_config = %({"owner_id": 786714018,
+    "admin_ids": [],
+    "db_path": "/mnt/c/ruby/autoforwardbot/db/db.json",
+    "groups_path": "/mnt/c/ruby/autoforwardbot/db/groups.json"})
+    if !@@path.empty?
+      JSON.parse(File.read(@@path.not_nil!))
+    else
+      JSON.parse(default_config)
+    end
   end
   
   def db_path : String
     path = config.as_h["db_path"].as_s
     unless File.exists?(path)
-      raise "Path #{path} doesn't exist; pass in the absolute path to the db file, for example: `/home/username/bot/db.json`" 
+      raise "Path #{path} doesn't exist; in `config.json`, add the absolute path to the db file, for example: `/home/username/bot/db.json`" 
     end
     path
   end
@@ -36,7 +44,7 @@ module Config
   def groups_path : String
     path = config.as_h["groups_path"].as_s
     unless File.exists?(path)
-      raise "Path #{path} doesn't exist; pass in the absolute path to the groups file, for example: `/home/username/bot/groups.json`" 
+      raise "Path #{path} doesn't exist; in `config.json`, add in the absolute path to the groups file, for example: `/home/username/bot/groups.json`" 
     end
     path
   end
